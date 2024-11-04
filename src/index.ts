@@ -1,7 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api')
+require('dotenv').config()
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = 'YOUR_TELEGRAM_BOT_TOKEN'
+const token = process.env.TELEGRAM_BOT_TOKEN
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true })
@@ -14,6 +15,7 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
   const chatId = msg.chat.id
   const resp = match[1] // the captured "whatever"
+  console.log(msg, '123')
 
   // send back the matched "whatever" to the chat
   bot.sendMessage(chatId, resp)
@@ -23,6 +25,7 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 // messages.
 bot.on('message', (msg) => {
   const chatId = msg.chat.id
+  console.log(msg)
 
   // send a message to the chat acknowledging receipt of their message
   bot.sendMessage(chatId, 'Received your message')
